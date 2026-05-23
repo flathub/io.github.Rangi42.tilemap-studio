@@ -8,12 +8,19 @@ finish-args:
   - --socket=x11
   - --device=dri
   - --share=ipc
-
+cleanup:
+  - /include
+  - /share/doc
+  - /share/man
+  - /share/pixmaps
+  - '*.a'
 modules:
   - name: fltk
     buildsystem: autotools
     config-opts:
       - --with-abiversion=10307
+    cleanup:
+      - /bin
     sources:
       - type: git
         url: https://github.com/fltk/fltk.git
@@ -21,10 +28,6 @@ modules:
         commit: 3600522ae7d2244b69552458e4d82f869a36067b
       - type: patch
         path: xdg-dir.patch
-    cleanup:
-      - /include
-      - /share
-      - /bin
 
   - name: polished-map
     buildsystem: simple
@@ -50,5 +53,3 @@ modules:
         path: io.github.Rangi42.tilemap-studio.png
       - type: file
         path: io.github.Rangi42.tilemap-studio.metainfo.xml
-    cleanup:
-      - /share/pixmaps
